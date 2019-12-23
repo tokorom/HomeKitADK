@@ -29,6 +29,8 @@
 
 #include "App.h"
 #include "DB.h"
+
+#include <stdlib.h>
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -170,6 +172,10 @@ HAPError HandleLightBulbOnWrite(
         accessoryConfiguration.state.lightBulbOn = value;
 
         SaveAccessoryState();
+
+        if (value) {
+            system("./handleLightBulbOn");
+        }
 
         HAPAccessoryServerRaiseEvent(server, request->characteristic, request->service, request->accessory);
     }
